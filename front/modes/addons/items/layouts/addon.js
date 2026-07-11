@@ -7,11 +7,6 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 		zone: 'root',
 		slot: 'center',
 		config: {
-			'developer_addons_selected': {
-				type: 'string',
-				value: '',
-				description: 'Id of the addon shown in the detail panel.'
-			},
 			'developer_addons_tab': {
 				type: 'string',
 				value: 'overview',
@@ -29,9 +24,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.entry = () =>
 			{
-				const item = developer.addons.ItemGet(this.developer_addons_selected);
-
-				return item ? item.Get(['id', 'name', 'description', 'content']) : null;
+				return this.developerAddon ? this.developerAddon.Get(['id', 'name', 'description', 'content']) : null;
 			};
 
 			this.pick = ({ value }) =>
@@ -41,25 +34,25 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.fields = () =>
 			{
-				return developer.Fn('addons.fields', this.developer_addons_selected);
+				return developer.Fn('addons.fields', this.developerAddon.Get('id'));
 			};
 
 			this.commands = () =>
 			{
-				return developer.Fn('addons.commands', this.developer_addons_selected);
+				return developer.Fn('addons.commands', this.developerAddon.Get('id'));
 			};
 
 			return `
 				<div class="ot-flex-vertical ot-gap-m ot-container-m ot-py-l">
-					<e-global-heading :title="entry().name" :description="entry().description" element="h2"></e-global-heading>
+					<e-global-heading :title="entry() ? entry().name : 'Addons'" :description="entry() ? entry().description : 'Pick an addon from the list on the left.'" element="h2"></e-global-heading>
 
-					<div ot-if="developer_addons_selected">
+					<div ot-if="developerAddon">
 						<e-navigation-tabs tone="contained" :items="tabs" :active="developer_addons_tab" :_change="pick"></e-navigation-tabs>
 					</div>
-					<div ot-if="developer_addons_selected && developer_addons_tab === 'overview'" class="ot-flex-vertical ot-gap-m">
+					<div ot-if="developerAddon && developer_addons_tab === 'overview'" class="ot-flex-vertical ot-gap-m">
 						<e-global-markdown ot-if="entry().content" :content="entry().content"></e-global-markdown>
 					</div>
-					<div ot-if="developer_addons_selected && developer_addons_tab === 'fields'" class="ot-flex-1 ot-scrollbar">
+					<div ot-if="developerAddon && developer_addons_tab === 'fields'" class="ot-flex-1 ot-scrollbar">
 						<e-global-parameters ot-if="fields().length" :items="fields()"></e-global-parameters>
 						<e-status-empty
 							ot-if="!fields().length"
@@ -68,7 +61,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 							description="This addon does not declare any fields."
 						></e-status-empty>
 					</div>
-					<div ot-if="developer_addons_selected && developer_addons_tab === 'commands'" class="ot-flex-vertical ot-gap-s ot-flex-1 ot-scrollbar">
+					<div ot-if="developerAddon && developer_addons_tab === 'commands'" class="ot-flex-vertical ot-gap-s ot-flex-1 ot-scrollbar">
 						<e-status-empty
 							ot-if="!commands().length"
 							icon="terminal"
@@ -97,7 +90,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 							</e-core-section>
 						</div>
 					</div>
-					<div ot-if="!developer_addons_selected" class="ot-flex-1">
+					<div ot-if="!developerAddon" class="ot-flex-1">
 						<e-status-empty
 							icon="extension"
 							title="No addon selected"

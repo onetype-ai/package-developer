@@ -18,10 +18,10 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.pick = ({ value }) =>
 			{
-				value.value && $ot.ui.layouts.data({ developer_elements_selected: value.value });
+				value.value && $ot.ui.screens.open('developer.element', { id: value.value });
 			};
 
-			return `<e-navigation-sidebar title="Elements" :search="true" :items="tree" :active="developer_elements_selected" :_click="pick"></e-navigation-sidebar>`;
+			return `<e-navigation-sidebar title="Elements" :search="true" :items="tree" :active="developerElement ? developerElement.Get('id') : ''" :_click="pick"></e-navigation-sidebar>`;
 		}
 	});
 });

@@ -5,7 +5,10 @@ onetype.AddonReady('ui.screens', (screens) =>
 		route: '/developer/addons/:id',
 		app: 'developer',
 		mode: 'addons',
-		params: { id: 'developer_addons_selected' },
-		metadata: { addon: 'developer' }
+		metadata: { addon: 'developer' },
+		data: function()
+		{
+			return { developerAddon: developer.addons.ItemGet(this.id) };
+		}
 	});
 });

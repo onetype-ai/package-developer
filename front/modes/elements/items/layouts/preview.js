@@ -7,11 +7,6 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 		zone: 'root',
 		slot: 'center',
 		config: {
-			'developer_elements_selected': {
-				type: 'string',
-				value: '',
-				description: 'Id of the element shown in the preview and the inspector.'
-			},
 			'developer_elements_tab': {
 				type: 'string',
 				value: 'preview',
@@ -34,12 +29,12 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.parameters = () =>
 			{
-				return developer.Fn('elements.parameters', this.developer_elements_selected);
+				return developer.Fn('elements.parameters', this.developerElement.Get('id'));
 			};
 
 			this.snippet = () =>
 			{
-				return developer.Fn('elements.snippet', this.developer_elements_selected);
+				return developer.Fn('elements.snippet', this.developerElement.Get('id'));
 			};
 
 			return `
@@ -49,16 +44,16 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 						description="Every element in the library with a live preview, its parameters and ready to paste usage code."
 						element="h2"
 					></e-global-heading>
-					<div ot-if="developer_elements_selected">
+					<div ot-if="developerElement">
 						<e-navigation-tabs tone="contained" :items="tabs" :active="developer_elements_tab" :_change="pick"></e-navigation-tabs>
 					</div>
-					<div ot-if="!developer_elements_selected || developer_elements_tab === 'preview'" class="ot-flex-1">
-						<e-developer-element :element="developer_elements_selected"></e-developer-element>
+					<div ot-if="!developerElement || developer_elements_tab === 'preview'" class="ot-flex-1">
+						<e-developer-element :element="developerElement ? developerElement.Get('id') : ''"></e-developer-element>
 					</div>
-					<div ot-if="developer_elements_selected && developer_elements_tab === 'parameters'" class="ot-flex-1 ot-scrollbar">
+					<div ot-if="developerElement && developer_elements_tab === 'parameters'" class="ot-flex-1 ot-scrollbar">
 						<e-global-parameters :items="parameters()"></e-global-parameters>
 					</div>
-					<div ot-if="developer_elements_selected && developer_elements_tab === 'code'" class="ot-flex-1 ot-scrollbar">
+					<div ot-if="developerElement && developer_elements_tab === 'code'" class="ot-flex-1 ot-scrollbar">
 						<e-global-code :source="snippet()" language="html" filename="usage" :copy="true"></e-global-code>
 					</div>
 				</div>
