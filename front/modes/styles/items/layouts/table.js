@@ -3,7 +3,8 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 	layouts.Item({
 		id: 'developer-styles-table',
 		isActive: true,
-		condition: { app: ['developer'], mode: ['styles'] },
+		screen: ['developer'],
+		condition: { mode: ['styles'] },
 		zone: 'root',
 		slot: 'center',
 		config: {
