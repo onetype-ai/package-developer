@@ -11,7 +11,9 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 			this.tabs = [
 				{ id: 'overview', label: 'Overview', icon: 'info' },
 				{ id: 'fields', label: 'Fields', icon: 'data_object' },
-				{ id: 'commands', label: 'Commands', icon: 'terminal' }
+				{ id: 'commands', label: 'Commands', icon: 'terminal' },
+				{ id: 'emitters', label: 'Emitters', icon: 'sensors' },
+				{ id: 'middlewares', label: 'Middlewares', icon: 'alt_route' }
 			];
 
 			this.entry = () =>
@@ -32,6 +34,16 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 			this.commands = () =>
 			{
 				return developer.Fn('addons.commands', this.developerAddon.Get('id'));
+			};
+
+			this.emitters = () =>
+			{
+				return developer.Fn('addons.emitters', this.developerAddon.Get('id'));
+			};
+
+			this.middlewares = () =>
+			{
+				return developer.Fn('addons.middlewares', this.developerAddon.Get('id'));
 			};
 
 			return `
@@ -78,6 +90,50 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 										<e-global-parameters :items="command.output" :background="2"></e-global-parameters>
 									</div>
 									<span ot-if="!command.parameters.length && !command.output.length">This command takes no parameters and returns no data.</span>
+								</div>
+							</e-core-section>
+						</div>
+					</div>
+					<div ot-if="developerAddon && developerAddonTab === 'emitters'" class="ot-flex-vertical ot-gap-s ot-flex-1 ot-scrollbar">
+						<e-status-empty
+							ot-if="!emitters().length"
+							icon="sensors"
+							title="No emitters"
+							description="This addon does not register any emitters."
+						></e-status-empty>
+						<div ot-for="emitter in emitters()" :ot-key="emitter.id">
+							<e-core-section
+								:title="emitter.id"
+								:description="emitter.description"
+								icon="sensors"
+								:collapsible="true"
+								:collapsed="true"
+							>
+								<div slot="content" class="ot-flex-vertical ot-gap-m">
+									<e-global-parameters ot-if="emitter.parameters.length" :items="emitter.parameters" :background="2"></e-global-parameters>
+									<span ot-if="!emitter.parameters.length">This emitter carries no payload.</span>
+								</div>
+							</e-core-section>
+						</div>
+					</div>
+					<div ot-if="developerAddon && developerAddonTab === 'middlewares'" class="ot-flex-vertical ot-gap-s ot-flex-1 ot-scrollbar">
+						<e-status-empty
+							ot-if="!middlewares().length"
+							icon="alt_route"
+							title="No middlewares"
+							description="This addon does not register any middlewares."
+						></e-status-empty>
+						<div ot-for="middleware in middlewares()" :ot-key="middleware.id">
+							<e-core-section
+								:title="middleware.id"
+								:description="middleware.description"
+								icon="alt_route"
+								:collapsible="true"
+								:collapsed="true"
+							>
+								<div slot="content" class="ot-flex-vertical ot-gap-m">
+									<e-global-parameters ot-if="middleware.parameters.length" :items="middleware.parameters" :background="2"></e-global-parameters>
+									<span ot-if="!middleware.parameters.length">This middleware carries no context values.</span>
 								</div>
 							</e-core-section>
 						</div>
