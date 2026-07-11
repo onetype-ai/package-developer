@@ -6,14 +6,6 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 		condition: { app: ['developer'], mode: ['elements'] },
 		zone: 'root',
 		slot: 'center',
-		config: {
-			'developer_elements_tab': {
-				type: 'string',
-				value: 'preview',
-				options: ['preview', 'parameters', 'code'],
-				description: 'Active view of the element panel.'
-			}
-		},
 		render: function()
 		{
 			this.tabs = [
@@ -24,7 +16,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.pick = ({ value }) =>
 			{
-				$ot.ui.layouts.data({ 'developer_elements_tab': value });
+				$ot.ui.screens.open('developer.element', { id: this.developerElement.Get('id'), tab: value });
 			};
 
 			this.parameters = () =>
@@ -45,15 +37,15 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 						element="h2"
 					></e-global-heading>
 					<div ot-if="developerElement">
-						<e-navigation-tabs tone="contained" :items="tabs" :active="developer_elements_tab" :_change="pick"></e-navigation-tabs>
+						<e-navigation-tabs tone="contained" :items="tabs" :active="developerElementTab" :_change="pick"></e-navigation-tabs>
 					</div>
-					<div ot-if="!developerElement || developer_elements_tab === 'preview'" class="ot-flex-1">
+					<div ot-if="!developerElement || developerElementTab === 'preview'" class="ot-flex-1">
 						<e-developer-element :element="developerElement ? developerElement.Get('id') : ''"></e-developer-element>
 					</div>
-					<div ot-if="developerElement && developer_elements_tab === 'parameters'" class="ot-flex-1 ot-scrollbar">
+					<div ot-if="developerElement && developerElementTab === 'parameters'" class="ot-flex-1 ot-scrollbar">
 						<e-global-parameters :items="parameters()"></e-global-parameters>
 					</div>
-					<div ot-if="developerElement && developer_elements_tab === 'code'" class="ot-flex-1 ot-scrollbar">
+					<div ot-if="developerElement && developerElementTab === 'code'" class="ot-flex-1 ot-scrollbar">
 						<e-global-code :source="snippet()" language="html" filename="usage" :copy="true"></e-global-code>
 					</div>
 				</div>

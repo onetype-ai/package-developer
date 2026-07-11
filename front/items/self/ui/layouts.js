@@ -21,13 +21,12 @@ developer.addons.Item({
 		'| `ui:layouts:open` | Opens an item by id, optionally with data |',
 		'| `ui:layouts:close` | Closes an item by id |',
 		'| `ui:layouts:toggle` | Toggles an item by id |',
-		'| `ui:layouts:data` | Merges values into the global layout data |',
 		'',
 		'## Facade',
 		'',
 		'```js',
 		'$ot.ui.layouts.open(\'developer-elements-preview\');',
-		'$ot.ui.layouts.data({ developer_elements_selected: \'cards-stat\' });',
+		'$ot.ui.screens.open(\'developer.element\', { id: \'cards-stat\' });',
 		'```'
 	].join('\n')
 });

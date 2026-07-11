@@ -6,14 +6,6 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 		condition: { app: ['developer'], mode: ['addons'] },
 		zone: 'root',
 		slot: 'center',
-		config: {
-			'developer_addons_tab': {
-				type: 'string',
-				value: 'overview',
-				options: ['overview', 'fields', 'commands'],
-				description: 'Active view of the addon panel.'
-			}
-		},
 		render: function()
 		{
 			this.tabs = [
@@ -29,7 +21,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.pick = ({ value }) =>
 			{
-				$ot.ui.layouts.data({ developer_addons_tab: value });
+				$ot.ui.screens.open('developer.addon', { id: this.developerAddon.Get('id'), tab: value });
 			};
 
 			this.fields = () =>
@@ -47,12 +39,12 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 					<e-global-heading :title="entry() ? entry().name : 'Addons'" :description="entry() ? entry().description : 'Pick an addon from the list on the left.'" element="h2"></e-global-heading>
 
 					<div ot-if="developerAddon">
-						<e-navigation-tabs tone="contained" :items="tabs" :active="developer_addons_tab" :_change="pick"></e-navigation-tabs>
+						<e-navigation-tabs tone="contained" :items="tabs" :active="developerAddonTab" :_change="pick"></e-navigation-tabs>
 					</div>
-					<div ot-if="developerAddon && developer_addons_tab === 'overview'" class="ot-flex-vertical ot-gap-m">
+					<div ot-if="developerAddon && developerAddonTab === 'overview'" class="ot-flex-vertical ot-gap-m">
 						<e-global-markdown ot-if="entry().content" :content="entry().content"></e-global-markdown>
 					</div>
-					<div ot-if="developerAddon && developer_addons_tab === 'fields'" class="ot-flex-1 ot-scrollbar">
+					<div ot-if="developerAddon && developerAddonTab === 'fields'" class="ot-flex-1 ot-scrollbar">
 						<e-global-parameters ot-if="fields().length" :items="fields()"></e-global-parameters>
 						<e-status-empty
 							ot-if="!fields().length"
@@ -61,7 +53,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 							description="This addon does not declare any fields."
 						></e-status-empty>
 					</div>
-					<div ot-if="developerAddon && developer_addons_tab === 'commands'" class="ot-flex-vertical ot-gap-s ot-flex-1 ot-scrollbar">
+					<div ot-if="developerAddon && developerAddonTab === 'commands'" class="ot-flex-vertical ot-gap-s ot-flex-1 ot-scrollbar">
 						<e-status-empty
 							ot-if="!commands().length"
 							icon="terminal"

@@ -6,14 +6,6 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 		condition: { app: ['developer'], mode: ['styles'] },
 		zone: 'root',
 		slot: 'center',
-		config: {
-			'developer_styles_tab': {
-				type: 'string',
-				value: 'variables',
-				options: ['variables', 'classes'],
-				description: 'Active view of the styles table.'
-			}
-		},
 		render: function()
 		{
 			this.columns = [
@@ -29,7 +21,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.pick = ({ value }) =>
 			{
-				$ot.ui.layouts.data({ developer_styles_tab: value });
+				$ot.ui.screens.open('developer.styles', { tab: value });
 			};
 
 			this.members = [
@@ -39,7 +31,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 
 			this.rows = () =>
 			{
-				const kind = this.developer_styles_tab === 'classes' ? 'class' : 'variable';
+				const kind = this.developerStylesTab === 'classes' ? 'class' : 'variable';
 				const groups = [];
 
 				for(const row of developer.Fn('styles.list').filter((entry) => entry.kind === kind))
@@ -72,7 +64,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 						element="h2"
 					></e-global-heading>
 					<div>
-						<e-navigation-tabs tone="contained" :items="tabs" :active="developer_styles_tab" :_change="pick"></e-navigation-tabs>
+						<e-navigation-tabs tone="contained" :items="tabs" :active="developerStylesTab" :_change="pick"></e-navigation-tabs>
 					</div>
 					<div class="ot-flex-1 ot-scrollbar">
 						<e-data-table :columns="columns" :rows="rows()"></e-data-table>
