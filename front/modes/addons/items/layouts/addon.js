@@ -3,8 +3,7 @@ onetype.AddonReady('ui.layouts', (layouts) =>
 	layouts.Item({
 		id: 'developer-addons-addon',
 		isActive: true,
-		screen: ['developer'],
-		condition: { mode: ['addons'] },
+		condition: { app: ['developer'], mode: ['addons'] },
 		zone: 'root',
 		slot: 'center',
 		config: {

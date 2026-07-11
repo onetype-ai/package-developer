@@ -2,7 +2,7 @@ onetype.AddonReady('ui.modes', (modes) =>
 {
 	modes.Item({
 		id: 'addons',
-		condition: { screen: ['developer'] },
+		condition: { app: ['developer'] },
 		order: 2,
 		icon: 'extension',
 		name: 'Addons'
