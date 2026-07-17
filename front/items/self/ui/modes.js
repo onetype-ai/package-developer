@@ -12,17 +12,6 @@ developer.addons.Item({
 		'',
 		'- `condition.app` — which app the mode belongs to',
 		'- `isDefault` — activates when the app opens',
-		'- `order`, `icon`, `name` — how the switcher renders it',
-		'',
-		'## Commands',
-		'',
-		'| Command | What it does |',
-		'| --- | --- |',
-		'| `ui:modes:switch` | Switches the active mode, emits `ui.modes.switch` |',
-		'',
-		'```js',
-		'$ot.ui.modes.switch(\'styles\');',
-		'$ot.ui.modes.active(); // the active mode item',
-		'```'
+		'- `order`, `icon`, `name` — how the switcher renders it'
 	].join('\n')
 });

@@ -19,19 +19,6 @@ developer.addons.Item({
 		'',
 		'## Data',
 		'',
-		'The `data` callback result is never persisted. It is recomputed from the URL on every load, so renders can receive whole items, not just ids.',
-		'',
-		'## Commands',
-		'',
-		'| Command | What it does |',
-		'| --- | --- |',
-		'| `ui:screens:open` | Opens a screen with parameters, emits `ui.screens.open` |',
-		'| `ui:screens:close` | Closes the active screen, emits `ui.screens.close` |',
-		'',
-		'```js',
-		'$ot.ui.screens.open(\'developer.element\', { id: \'cards-stat\', tab: \'code\' });',
-		'$ot.ui.screens.active(); // the open screen item',
-		'$ot.ui.screens.close();',
-		'```'
+		'The `data` callback result is never persisted. It is recomputed from the URL on every load, so renders can receive whole items, not just ids.'
 	].join('\n')
 });

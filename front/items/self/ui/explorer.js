@@ -12,15 +12,6 @@ developer.addons.Item({
 		'',
 		'- `name` and `keywords` — what the search matches',
 		'- `run` — the callback executed on pick',
-		'- `condition` — entries follow the active app and mode',
-		'',
-		'## Commands',
-		'',
-		'| Command | What it does |',
-		'| --- | --- |',
-		'| `ui:explorer:open` | Opens the palette |',
-		'| `ui:explorer:close` | Closes it |',
-		'| `ui:explorer:toggle` | The Cmd K binding |',
-		'| `ui:explorer:run` | Executes an entry by id |'
+		'- `condition` — entries follow the active app and mode'
 	].join('\n')
 });

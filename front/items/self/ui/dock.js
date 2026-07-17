@@ -13,13 +13,6 @@ developer.addons.Item({
 		'- `placement` — `top` or `bottom` end of the rail',
 		'- `badge` — dot, count or short label on the icon',
 		'- `render` — panel content, string or function',
-		'- `condition` — when the item shows at all',
-		'',
-		'## Commands',
-		'',
-		'| Command | What it does |',
-		'| --- | --- |',
-		'| `ui:dock:open` | Opens the panel of an item by id |',
-		'| `ui:dock:close` | Closes the open panel |'
+		'- `condition` — when the item shows at all'
 	].join('\n')
 });

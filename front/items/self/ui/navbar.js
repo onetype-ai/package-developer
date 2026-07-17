@@ -13,13 +13,6 @@ developer.addons.Item({
 		'- `position` — `left`, `center` or `right` zone',
 		'- `popup` — dropdown anchored to the button, or a drawer through the float system',
 		'- `render` — inline content instead of the default button',
-		'- `badge`, `tooltip`, `active` — button chrome',
-		'',
-		'## Commands',
-		'',
-		'| Command | What it does |',
-		'| --- | --- |',
-		'| `ui:navbar:open` | Opens the popup of an item by id |',
-		'| `ui:navbar:close` | Closes it |'
+		'- `badge`, `tooltip`, `active` — button chrome'
 	].join('\n')
 });
